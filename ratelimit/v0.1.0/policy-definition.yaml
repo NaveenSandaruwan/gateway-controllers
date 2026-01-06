@@ -1,4 +1,4 @@
-name: RateLimit
+name: ratelimit
 version: v0.1.0
 description: |
   Rate limiting policy supporting multiple algorithms (GCRA, Fixed Window), multiple concurrent limits,

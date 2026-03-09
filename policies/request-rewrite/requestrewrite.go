@@ -42,8 +42,6 @@ const (
 	queryActionAdd          = "ADD"
 	queryActionAppend       = "APPEND"
 	queryActionReplaceRegex = "REPLACEREGEXMATCH"
-
-	dynamicMetadataNamespace = "api_platform.policy_engine.envoy.filters.http.ext_proc"
 )
 
 var ins = &RequestRewritePolicy{}
@@ -162,9 +160,10 @@ func (p *RequestRewritePolicy) OnRequest(ctx *policy.RequestContext, params map[
 	}
 
 	mods := policy.UpstreamRequestModifications{}
+
 	if finalPath != originalPath {
-		slog.Info("[Request Rewrite]: Rewriting path", "from", originalPath, "to", finalPath)
-		mods.SetHeaders = map[string]string{":path": finalPath}
+		slog.Info("[Request Rewrite]: Scheduling path rewrite", "from", originalPath, "to", finalPath)
+		mods.Path = &finalPath
 	}
 
 	method := strings.TrimSpace(cfg.MethodRewrite)
@@ -173,11 +172,7 @@ func (p *RequestRewritePolicy) OnRequest(ctx *policy.RequestContext, params map[
 		if !isAllowedMethod(method) {
 			return configErrorResponse("Invalid methodRewrite value", fmt.Errorf("unsupported method: %s", method))
 		}
-		mods.DynamicMetadata = map[string]map[string]any{
-			dynamicMetadataNamespace: {
-				"request_transformation.target_method": method,
-			},
-		}
+		mods.Method = &method
 		slog.Info("[Request Rewrite]: Scheduling method rewrite", "method", method)
 	}
 

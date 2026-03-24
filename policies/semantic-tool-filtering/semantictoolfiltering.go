@@ -299,7 +299,7 @@ func parseParams(params map[string]interface{}, p *SemanticToolFilteringPolicy) 
 	p.selectionMode = selectionMode
 
 	// Optional: Limit (default 5 as per policy-definition.yaml)
-	if limitRaw, ok := params["Limit"]; ok {
+	if limitRaw, ok := params["limit"]; ok {
 		limit, err := extractInt(limitRaw)
 		if err != nil {
 			return fmt.Errorf("'Limit' must be a number: %w", err)
@@ -313,7 +313,7 @@ func parseParams(params map[string]interface{}, p *SemanticToolFilteringPolicy) 
 	}
 
 	// Optional: similarityThreshold (default 0.7 as per policy-definition.yaml)
-	if thresholdRaw, ok := params["Threshold"]; ok {
+	if thresholdRaw, ok := params["threshold"]; ok {
 		threshold, err := extractFloat64(thresholdRaw)
 		if err != nil {
 			return fmt.Errorf("'Threshold' must be a number: %w", err)

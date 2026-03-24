@@ -24,8 +24,8 @@ This policy helps reduce token consumption and improve LLM response quality by s
 | Parameter | Type | Required | Default | Description |
 |-----------|------|----------|---------|-------------|
 | selectionMode | string | Yes | `By Rank` | Method used to filter tools: `By Rank` (selects top-K) or `By Threshold` (selects based on score). |
-| Limit | integer | No | `5` | The number of most relevant tools to include (used if selectionMode is `By Rank`). |
-| Threshold | number | No | `0.7` | Similarity threshold for filtering (0.0 to 1.0). Only tools with a score above this value are included (used if selectionMode is `By Threshold`). |
+| limit | integer | No | `5` | The number of most relevant tools to include (used if selectionMode is `By Rank`). |
+| threshold | number | No | `0.7` | Similarity threshold for filtering (0.0 to 1.0). Only tools with a score above this value are included (used if selectionMode is `By Threshold`). |
 | queryJSONPath | string | No | `$.messages[-1].content` | JSONPath expression to extract the user's query from the request body. |
 | toolsJSONPath | string | No | `$.tools` | JSONPath expression to extract the tools array from the request body (used when `toolsIsJson` is true). |
 | userQueryIsJson | boolean | No | `true` | Specifies format of user query. `true`: use `queryJSONPath`. `false`: extract from text using `<userq>` tags. |
@@ -78,7 +78,7 @@ policies:
       name: semantic-tool-filtering
       parameters:
         selectionMode: "By Rank"
-        Limit: 3
+        limit: 3
         queryJSONPath: "$.contents[0].parts[0].text"
         toolsJSONPath: "$.tools[0].function_declarations"
         userQueryIsJson: true
@@ -138,7 +138,7 @@ policies:
       name: semantic-tool-filtering
       parameters:
         selectionMode: "By Threshold"
-        Threshold: 0.7
+        threshold: 0.7
 ```
 
 ### Scenario 3: Text Format (XML-like Tags)
@@ -154,7 +154,7 @@ policies:
       name: semantic-tool-filtering
       parameters:
         selectionMode: "By Rank"
-        Limit: 3
+        limit: 3
         userQueryIsJson: false
         toolsIsJson: false
 ```

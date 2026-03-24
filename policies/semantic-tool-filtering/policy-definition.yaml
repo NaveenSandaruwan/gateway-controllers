@@ -47,6 +47,7 @@ parameters:
         JSONPath expression to extract the tools array from the request body (used when toolsIsJson is true).
         Example: "$.tools"
       default: "$.tools"
+      pattern: '^(?:\$\.)?[A-Za-z_][A-Za-z0-9_]*(?:\.[A-Za-z_][A-Za-z0-9_]*)*$'
     userQueryIsJson:
       type: boolean
       description: |
@@ -85,6 +86,7 @@ systemParameters:
       type: string
       description: "Endpoint URL for the embedding service"
       "wso2/defaultValue": "${config.embedding_provider_endpoint}"
+      minLength: 1
     embeddingModel:
       type: string
       description: "Model name (e.g., text-embedding-3-small or mistral-embed)"
@@ -93,6 +95,7 @@ systemParameters:
       type: string
       description: "API key for the embedding service"
       "wso2/defaultValue": "${config.embedding_provider_api_key}"
+      minLength: 1
   required:
     - embeddingProvider
     - embeddingEndpoint

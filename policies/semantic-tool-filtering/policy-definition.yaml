@@ -13,6 +13,7 @@ parameters:
   properties:
     selectionMode:
       type: string
+      x-wso2-policy-advanced-param: true
       description: |
         Method used to filter tools:
         - "By Rank": Selects a fixed number of the most relevant tools.
@@ -23,12 +24,14 @@ parameters:
       default: "By Rank"
     limit:
       type: integer
+      x-wso2-policy-advanced-param: true
       description: "The number of most relevant tools to include (used if selectionMode is By Rank)."
       minimum: 0
       maximum: 20
       default: 5
     threshold:
       type: number
+      x-wso2-policy-advanced-param: true
       description: |
         Similarity threshold for filtering (0.0 to 1.0). 
         Only tools with a score above this value are included (used if selectionMode is By Threshold).
@@ -37,12 +40,14 @@ parameters:
       default: 0.7
     queryJSONPath:
       type: string
+      x-wso2-policy-advanced-param: true
       description: |
         JSONPath expression to extract the user's query from the request body.
         Example: "$.messages[-1].content"
       default: "$.messages[-1].content"
     toolsJSONPath:
       type: string
+      x-wso2-policy-advanced-param: true
       description: |
         JSONPath expression to extract the tools array from the request body (used when toolsIsJson is true).
         Example: "$.tools"
@@ -50,6 +55,7 @@ parameters:
       pattern: '^(?:\$\.)?[A-Za-z_][A-Za-z0-9_]*(?:\.[A-Za-z_][A-Za-z0-9_]*)*$'
     userQueryIsJson:
       type: boolean
+      x-wso2-policy-advanced-param: true
       description: |
         Specifies the format of user query extraction:
         - true: Extract user query using query JSON path from queryJSONPath parameter
@@ -57,6 +63,7 @@ parameters:
       default: true
     toolsIsJson:
       type: boolean
+      x-wso2-policy-advanced-param: true
       description: |
         Specifies the format of tools definition:
         - true: Extract tools using tools JSON path from toolsJSONPath parameter (JSON format)
@@ -73,6 +80,7 @@ parameters:
 
 systemParameters:
   type: object
+  x-wso2-policy-advanced-param: true
   properties:
     embeddingProvider:
       type: string
